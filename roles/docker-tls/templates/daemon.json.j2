@@ -1,0 +1,8 @@
+{
+	"hosts": ["tcp://0.0.0.0:2376"],
+	"tls": true,
+	"tlsverify": true,
+	"tlscacert": "{{ dds_cert_path }}/ca.pem",
+	"tlscert": "{{ dds_cert_path }}/server-cert.pem",
+	"tlskey": "{{ dds_cert_path }}/server-key.pem"
+}

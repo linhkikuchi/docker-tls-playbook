@@ -28,7 +28,7 @@
     line: "subjectAltName = DNS:{{ dds_name }},IP:{{ dds_host }},IP:127.0.0.1"
 
 - name: Create the server certificate 
-  command: openssl x509 -req -days 365 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf
+  command: openssl x509 -req -days 9999 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf
   args:
     chdir: "{{ dds_cert_path }}/"
     creates: server-cert.pem

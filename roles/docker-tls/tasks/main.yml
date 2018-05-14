@@ -25,16 +25,22 @@
 - name:  setting DOCKER env vars
   template: src=docker_env.j2 dest=/etc/profile.d/docker.sh owner=root group=root mode=0644
 
+- name: Ensure docker config directory exists
+  file:
+    path: /etc/docker
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+    
 - name: add tsl config to docker daemon
-  lineinfile:
-    backrefs: yes
-    dest: "{{ docker_daemon_config }}"
-    regexp: '^ExecStart=/usr/bin/dockerd'
-    line: 'ExecStart=/usr/bin/dockerd --tlsverify --tlscacert={{ dds_cert_path }}/ca.pem --tlscert={{ dds_cert_path }}/server-cert.pem --tlskey={{ dds_cert_path }}/server-key.pem  -H=0.0.0.0:2376'
-    state: present
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json owner=root group=root mode=0644
   notify: 
     - reload docker daemon
     - restart docker service
+  tags:
+    - docker-tls
+    - docker-daemon
 
 # to call handler before running the next task
 - meta: flush_handlers

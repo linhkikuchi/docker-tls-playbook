@@ -1,5 +1,5 @@
 # docker-tls
-This playbook is to set up a server (CENTOS7) with docker TLS installed and running on port 2376
+This playbook is to install docker on a server (CENTOS7) and secure docker socket with TLS on port 2376
 
 Role Name
 =========
